@@ -6,9 +6,9 @@ resource "vault_kv_secret_v2" "this" {
 }
 
 resource "vault_policy" "this" {
-  depends_on = [ vault_kv_secret_v2.this ]
-  name   = "${var.vault_role_name}-policy"
-  policy = data.vault_policy_document.this.hcl
+  depends_on = [vault_kv_secret_v2.this]
+  name       = "${var.vault_role_name}-policy"
+  policy     = data.vault_policy_document.this.hcl
 }
 
 resource "vault_kubernetes_auth_backend_role" "this" {

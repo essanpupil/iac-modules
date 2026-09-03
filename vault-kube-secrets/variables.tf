@@ -3,7 +3,7 @@ variable "create_service_account" {
 }
 
 variable "service_account_name" {
-  type = string
+  type    = string
   default = ""
 }
 
