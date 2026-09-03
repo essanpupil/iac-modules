@@ -14,7 +14,7 @@ resource "vault_policy" "this" {
 resource "vault_kubernetes_auth_backend_role" "this" {
   backend                          = var.kubernetes_path
   role_name                        = var.vault_role_name
-  bound_service_account_names      = [kubernetes_service_account_v1.kube_sa.metadata[0].name]
+  bound_service_account_names      = [var.create_service_account ? kubernetes_service_account_v1.kube_sa[0].metadata[0].name : var.service_account_name]
   bound_service_account_namespaces = [var.kubernetes_namespace]
   token_policies                   = [vault_policy.this.name]
   token_ttl                        = 1800 # 30 minutes

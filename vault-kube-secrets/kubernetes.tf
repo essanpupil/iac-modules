@@ -1,13 +1,14 @@
 resource "kubernetes_service_account_v1" "kube_sa" {
+    count = var.create_service_account ? 1 : 0
   metadata {
-    name      = "${var.vault_role_name}-sa"
+    name      = "${var.service_account_name}"
     namespace = var.kubernetes_namespace
   }
 }
 
 resource "kubernetes_cluster_role_binding_v1" "kube_rb" {
   metadata {
-    name = "${var.vault_role_name}-rb"
+    name = "${var.service_account_name}-rb"
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
@@ -16,7 +17,7 @@ resource "kubernetes_cluster_role_binding_v1" "kube_rb" {
   }
   subject {
     kind      = "ServiceAccount"
-    name      = kubernetes_service_account_v1.kube_sa.metadata[0].name
+    name      = var.create_service_account ? kubernetes_service_account_v1.kube_sa[0].metadata[0].name : var.service_account_name
     namespace = var.kubernetes_namespace
   }
 }
@@ -33,7 +34,7 @@ resource "kubernetes_manifest" "vault_auth" {
       mount: ${var.kubernetes_path}
       kubernetes:
         role: ${vault_kubernetes_auth_backend_role.this.role_name}
-        serviceAccount: ${kubernetes_service_account_v1.kube_sa.metadata[0].name}
+        serviceAccount: ${var.create_service_account ? kubernetes_service_account_v1.kube_sa[0].metadata[0].name : var.service_account_name}
   EOF
   )
 }

@@ -1,3 +1,12 @@
+variable "create_service_account" {
+  type = bool
+}
+
+variable "service_account_name" {
+  type = string
+  default = ""
+}
+
 variable "vault_role_name" {
   type = string
 }
