@@ -7,7 +7,7 @@ resource "vault_kv_secret_v2" "this" {
 
 resource "vault_policy" "this" {
   depends_on = [vault_kv_secret_v2.this]
-  name       = "${var.vault_role_name}-policy"
+  name       = var.vautl_policy_name == "" ? "${var.vault_role_name}-policy" : var.vautl_policy_name
   policy     = data.vault_policy_document.this.hcl
 }
 

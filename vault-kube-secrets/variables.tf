@@ -25,8 +25,24 @@ variable "kv_secret_path" {
 
 variable "vault_kv_secrets" {
   type = list(object({
-    name = string
-    type = string
-    data = map(string)
+    vault_static_name = string
+    name              = string
+    type              = string
+    data              = map(string)
   }))
+}
+
+variable "vautl_policy_name" {
+  type    = string
+  default = ""
+}
+
+variable "vault_auth_name" {
+  type    = string
+  default = ""
+}
+
+variable "cluster_role_binding_name" {
+  type    = string
+  default = ""
 }
