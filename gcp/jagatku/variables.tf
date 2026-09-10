@@ -25,3 +25,8 @@ variable "org_id" {
   type        = string
   default     = ""
 }
+
+variable "auto_create_network" {
+  type    = bool
+  default = false
+}
