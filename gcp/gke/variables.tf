@@ -27,3 +27,23 @@ variable "service_account_description" {
 variable "project_id" {
   type = string
 }
+
+variable "network_policy_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "network_policy_provider" {
+  type    = string
+  default = "PROVIDER_UNSPECIFIED"
+}
+
+variable "enable_cilium_clusterwide_network_policy" {
+  type    = bool
+  default = true
+}
+
+variable "datapath_provider" {
+  type    = string
+  default = "ADVANCED_DATAPATH"
+}

@@ -7,15 +7,17 @@ resource "google_service_account" "this" {
 resource "google_container_cluster" "this" {
   # checkov:skip=CKV_GCP_69
   # checkov:skip=CKV_GCP_65
-  project                  = var.project_id
-  name                     = var.name
-  location                 = var.location
-  remove_default_node_pool = true
-  initial_node_count       = 1
-  networking_mode          = "VPC_NATIVE"
-  network                  = var.network_id
-  subnetwork               = var.subnetwork_id
-  deletion_protection      = false
+  project                                  = var.project_id
+  name                                     = var.name
+  location                                 = var.location
+  remove_default_node_pool                 = true
+  initial_node_count                       = 1
+  networking_mode                          = "VPC_NATIVE"
+  network                                  = var.network_id
+  subnetwork                               = var.subnetwork_id
+  deletion_protection                      = false
+  datapath_provider                        = var.datapath_provider
+  enable_cilium_clusterwide_network_policy = var.enable_cilium_clusterwide_network_policy
 
   binary_authorization {
     evaluation_mode = "PROJECT_SINGLETON_POLICY_ENFORCE"
@@ -44,8 +46,8 @@ resource "google_container_cluster" "this" {
   }
 
   network_policy {
-    enabled  = true
-    provider = "CALICO"
+    enabled  = var.network_policy_enabled
+    provider = var.network_policy_provider
   }
 
   private_cluster_config {
