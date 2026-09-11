@@ -1,11 +1,13 @@
 resource "google_compute_network" "jagat" {
   # checkov:ignore:CKV2_GCP_18
-  name                    = "jagat"
+  project                 = var.project_id
+  name                    = var.network_name
   auto_create_subnetworks = false
   routing_mode            = "GLOBAL"
 }
 
 resource "google_compute_firewall" "allow_web" {
+  project       = var.project_id
   name          = "jagat-allow-web"
   network       = google_compute_network.jagat.name
   source_ranges = ["10.2.0.0/16"]
@@ -18,9 +20,11 @@ resource "google_compute_firewall" "allow_web" {
 }
 
 resource "google_compute_subnetwork" "private_subnetwork" {
-  name                     = "private-subnetwork"
-  ip_cidr_range            = "10.2.0.0/16"
-  region                   = "us-central1"
+  for_each                 = var.subnets
+  project                  = var.project_id
+  name                     = each.value.name
+  ip_cidr_range            = each.value.ip_cidr_range
+  region                   = each.value.region
   network                  = google_compute_network.jagat.id
   private_ip_google_access = true
 
