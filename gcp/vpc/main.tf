@@ -20,11 +20,11 @@ resource "google_compute_firewall" "allow_web" {
 }
 
 resource "google_compute_subnetwork" "private_subnetwork" {
-  for_each                 = var.subnets
+  count                    = length(var.private_subnets)
   project                  = var.project_id
-  name                     = each.value.name
-  ip_cidr_range            = each.value.ip_cidr_range
-  region                   = each.value.region
+  name                     = var.private_subnets[count.index].name
+  ip_cidr_range            = var.private_subnets[count.index].ip_cidr_range
+  region                   = var.private_subnets[count.index].region
   network                  = google_compute_network.jagat.id
   private_ip_google_access = true
 

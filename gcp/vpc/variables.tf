@@ -14,9 +14,9 @@ variable "additional_tags" {
   default     = {}
 }
 
-variable "subnets" {
+variable "private_subnets" {
   description = "The list of subnets"
-  type = map(object({
+  type = list(object({
     name          = string
     ip_cidr_range = string
     region        = string
