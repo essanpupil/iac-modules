@@ -1,4 +1,4 @@
-resource "google_compute_network" "jagat" {
+resource "google_compute_network" "this" {
   # checkov:ignore:CKV2_GCP_18
   project                 = var.project_id
   name                    = var.network_name
@@ -9,7 +9,7 @@ resource "google_compute_network" "jagat" {
 resource "google_compute_firewall" "allow_web" {
   project       = var.project_id
   name          = "jagat-allow-web"
-  network       = google_compute_network.jagat.name
+  network       = google_compute_network.this.name
   source_ranges = ["10.2.0.0/16"]
   source_tags   = ["jagat"]
 
@@ -25,7 +25,7 @@ resource "google_compute_subnetwork" "private_subnetwork" {
   name                     = var.private_subnets[count.index].name
   ip_cidr_range            = var.private_subnets[count.index].ip_cidr_range
   region                   = var.private_subnets[count.index].region
-  network                  = google_compute_network.jagat.id
+  network                  = google_compute_network.this.id
   private_ip_google_access = true
 
 

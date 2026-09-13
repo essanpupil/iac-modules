@@ -11,6 +11,10 @@ variable "network_id" {
   type = string
 }
 
+variable "network_name" {
+  type = string
+}
+
 variable "subnetwork_id" {
   type = string
 }
@@ -56,4 +60,8 @@ variable "addons_network_policy_config" {
 variable "bastion_zone" {
   type    = string
   default = "a"
+}
+
+variable "ssh_source_range" {
+  type = list(string)
 }

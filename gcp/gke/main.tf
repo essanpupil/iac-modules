@@ -4,6 +4,17 @@ resource "google_service_account" "this" {
   project      = var.project_id
 }
 
+module "bastion" {
+  source           = "/Users/essan/Code/iac-modules/gcp/compute-instance"
+  network_name     = var.network_name
+  project_id       = var.project_id
+  subnetwork_id    = var.subnetwork_id
+  name             = "${var.name}-bastion"
+  zone             = "${var.location}-${var.bastion_zone}"
+  allow_ssh        = true
+  ssh_source_range = var.ssh_source_range
+}
+
 resource "google_container_cluster" "this" {
   # checkov:skip=CKV_GCP_69
   # checkov:skip=CKV_GCP_65
