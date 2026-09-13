@@ -47,3 +47,13 @@ variable "datapath_provider" {
   type    = string
   default = "ADVANCED_DATAPATH"
 }
+
+variable "addons_network_policy_config" {
+  type    = bool
+  default = true
+}
+
+variable "bastion_zone" {
+  type    = string
+  default = "a"
+}

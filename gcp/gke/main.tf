@@ -41,7 +41,7 @@ resource "google_container_cluster" "this" {
 
   addons_config {
     network_policy_config {
-      disabled = false
+      disabled = var.addons_network_policy_config
     }
   }
 
