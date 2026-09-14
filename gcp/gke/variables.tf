@@ -63,5 +63,25 @@ variable "bastion_zone" {
 }
 
 variable "ssh_source_range" {
-  type = list(string)
+  type    = list(string)
+  default = [""]
+}
+
+variable "create_bastion" {
+  type = bool
+}
+
+variable "enable_private_endpoint" {
+  type    = bool
+  default = true
+}
+
+variable "gcp_public_cidrs_access_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "public_authorized_cidr" {
+  type    = string
+  default = "127.0.0.1/32"
 }

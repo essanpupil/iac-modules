@@ -6,6 +6,7 @@ resource "google_service_account" "this" {
 
 module "bastion" {
   source           = "/Users/essan/Code/iac-modules/gcp/compute-instance"
+  count            = var.create_bastion ? 1 : 0
   network_name     = var.network_name
   project_id       = var.project_id
   subnetwork_id    = var.subnetwork_id
@@ -63,7 +64,7 @@ resource "google_container_cluster" "this" {
 
   private_cluster_config {
     enable_private_nodes    = true
-    enable_private_endpoint = true
+    enable_private_endpoint = var.enable_private_endpoint
   }
 
   control_plane_endpoints_config {
@@ -83,12 +84,12 @@ resource "google_container_cluster" "this" {
   # }
 
   master_authorized_networks_config {
-    gcp_public_cidrs_access_enabled      = false
+    gcp_public_cidrs_access_enabled      = var.gcp_public_cidrs_access_enabled
     private_endpoint_enforcement_enabled = true
-    # cidr_blocks {
-    #   cidr_block   = "125.160.217.225/32"
-    #   display_name = "DreamSpace"
-    # }
+    cidr_blocks {
+      cidr_block   = var.public_authorized_cidr
+      display_name = "DreamSpace"
+    }
   }
 }
 
