@@ -40,7 +40,7 @@ resource "google_container_cluster" "this" {
   }
 
   workload_identity_config {
-    workload_pool = "jagatku.svc.id.goog"
+    workload_pool = "${var.project_id}.svc.id.goog"
   }
 
   release_channel {
@@ -90,6 +90,10 @@ resource "google_container_cluster" "this" {
       cidr_block   = var.public_authorized_cidr
       display_name = "DreamSpace"
     }
+  }
+
+  secret_manager_config {
+    enabled = var.enabled_secret_manager_config
   }
 }
 

@@ -85,3 +85,8 @@ variable "public_authorized_cidr" {
   type    = string
   default = "127.0.0.1/32"
 }
+
+variable "enabled_secret_manager_config" {
+  type    = bool
+  default = false
+}
