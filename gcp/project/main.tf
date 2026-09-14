@@ -8,3 +8,11 @@ resource "google_project" "this" {
   org_id              = var.org_id == "" ? null : var.org_id
   auto_create_network = var.auto_create_network
 }
+
+resource "google_project_service" "this" {
+  count              = length(var.enabled_services)
+  project            = google_project.this.id
+  service            = var.enabled_services[count.index]
+  disable_on_destroy = false
+}
+

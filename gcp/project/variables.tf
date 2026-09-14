@@ -30,3 +30,7 @@ variable "auto_create_network" {
   type    = bool
   default = false
 }
+
+variable "enabled_services" {
+  type = list(string)
+}
