@@ -13,6 +13,7 @@ resource "google_compute_firewall" "allow_ssh" {
   }
 
   description = "Allows SSH traffic from the corporate office network."
+  target_tags = ["bastion"]
 }
 
 resource "google_compute_instance" "bastion" {
@@ -20,6 +21,7 @@ resource "google_compute_instance" "bastion" {
   name         = var.name
   machine_type = "e2-micro"
   zone         = var.zone
+  tags = ["bastion"]
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-13"
