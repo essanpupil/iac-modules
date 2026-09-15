@@ -6,6 +6,10 @@ output "network_name" {
   value = google_compute_network.this.name
 }
 
-output "private_subnetworks" {
-  value = google_compute_subnetwork.private_subnetwork[*].id
+output "private_subnetworks_id" {
+  value = module.private_subnetworks[*].subnetwork_ids
+}
+
+output "private_subnetworks_name" {
+  value = module.private_subnetworks[*].subnetwork_names
 }

@@ -19,19 +19,12 @@ resource "google_compute_firewall" "allow_web" {
   }
 }
 
-resource "google_compute_subnetwork" "private_subnetwork" {
-  count                    = length(var.private_subnets)
-  project                  = var.project_id
-  name                     = var.private_subnets[count.index].name
-  ip_cidr_range            = var.private_subnets[count.index].ip_cidr_range
-  region                   = var.private_subnets[count.index].region
-  network                  = google_compute_network.this.id
-  private_ip_google_access = true
-
-
-  log_config {
-    aggregation_interval = "INTERVAL_10_MIN"
-    flow_sampling        = 0.5
-    metadata             = "INCLUDE_ALL_METADATA"
-  }
+module "private_subnetworks" {
+  count         = length(var.private_subnets)
+  source        = "/Users/essan/Code/iac-modules/gcp/subnetwork"
+  project_id    = var.project_id
+  name          = var.private_subnets[count.index].name
+  region        = var.private_subnets[count.index].region
+  ip_cidr_range = var.private_subnets[count.index].ip_cidr_range
+  network_id    = google_compute_network.this.id
 }

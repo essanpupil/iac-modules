@@ -16,7 +16,13 @@ variable "network_name" {
 }
 
 variable "subnetwork_id" {
-  type = string
+  type    = string
+  default = null
+}
+
+variable "subnetwork_name" {
+  type    = string
+  default = null
 }
 
 variable "service_account_id" {
