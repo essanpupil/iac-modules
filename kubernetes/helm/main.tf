@@ -13,4 +13,5 @@ resource "helm_release" "this" {
   version    = var.chart_version
   atomic     = var.atomic
   wait       = var.wait
+  values     = [var.values]
 }

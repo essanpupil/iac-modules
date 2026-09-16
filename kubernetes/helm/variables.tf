@@ -34,3 +34,8 @@ variable "namespace_name" {
   type    = string
   default = null
 }
+
+variable "values" {
+  type    = string
+  default = null
+}
