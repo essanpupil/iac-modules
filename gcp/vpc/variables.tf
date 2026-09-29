@@ -22,13 +22,3 @@ variable "private_subnets" {
     region        = string
   }))
 }
-
-variable "allow_ssh" {
-  type = bool
-  default = false
-}
-
-variable "ssh_source_ranges" {
-  type = list(string)
-  default = ["0.0.0.0/0"]
-}

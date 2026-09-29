@@ -13,3 +13,7 @@ output "private_subnetworks_id" {
 output "private_subnetworks_name" {
   value = module.private_subnetworks[*].subnetwork_names
 }
+
+output "private_subnetworks_region" {
+  value = module.private_subnetworks[*].subnetwork_region_name
+}

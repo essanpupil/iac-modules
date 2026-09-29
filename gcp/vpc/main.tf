@@ -6,21 +6,6 @@ resource "google_compute_network" "this" {
   routing_mode            = "GLOBAL"
 }
 
-module "allow_ssh" {
-  count = var.allow_ssh ? 1 : 0
-  source = "../compute-firewall"
-  project_id = var.project_id
-  name = "${var.network_name}-ssh-rule"
-  network = google_compute_network.this.id
-  source_ranges = var.ssh_source_ranges
-  allow = [
-    {
-      protocol = "tcp"
-      ports = ["22"]
-    }
-  ]
-}
-
 module "private_subnetworks" {
   count         = length(var.private_subnets)
   source        = "../subnetwork"
