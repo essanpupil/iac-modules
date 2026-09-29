@@ -5,7 +5,7 @@ resource "google_service_account" "this" {
 }
 
 module "bastion" {
-  source           = "/Users/essan/Code/iac-modules/gcp/compute-instance"
+  source           = "../compute-instance"
   count            = var.create_bastion ? 1 : 0
   network_name     = var.network_name
   project_id       = var.project_id

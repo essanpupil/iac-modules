@@ -8,7 +8,7 @@ resource "google_compute_network" "this" {
 
 module "allow_ssh" {
   count = var.allow_ssh ? 1 : 0
-  source = "/Users/essan/Code/iac-modules/gcp/compute-firewall"
+  source = "../compute-firewall"
   project_id = var.project_id
   name = "${var.network_name}-ssh-rule"
   network = google_compute_network.this.id
@@ -23,7 +23,7 @@ module "allow_ssh" {
 
 module "private_subnetworks" {
   count         = length(var.private_subnets)
-  source        = "/Users/essan/Code/iac-modules/gcp/subnetwork"
+  source        = "../subnetwork"
   project_id    = var.project_id
   name          = var.private_subnets[count.index].name
   region        = var.private_subnets[count.index].region
