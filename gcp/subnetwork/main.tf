@@ -4,13 +4,15 @@ resource "google_compute_subnetwork" "this" {
   ip_cidr_range            = var.ip_cidr_range
   region                   = var.region
   network                  = var.network_id
-  private_ip_google_access = true
+  private_ip_google_access = var.enable_private_ip_google_access
 
-
-  log_config {
-    aggregation_interval = "INTERVAL_10_MIN"
-    flow_sampling        = 0.5
-    metadata             = "INCLUDE_ALL_METADATA"
+  dynamic "log_config" {
+    for_each = var.enable_flow_logs ? [true] : []
+    content {
+      aggregation_interval = var.flow_logs_aggregation_interval
+      flow_sampling        = var.flow_logs_sampling
+      metadata             = var.flow_logs_metadata
+    }
   }
 }
 
