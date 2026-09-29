@@ -5,3 +5,7 @@ output "subnetwork_ids" {
 output "subnetwork_names" {
   value = google_compute_subnetwork.this.name
 }
+
+output "subnetwork_region_name" {
+  value = google_compute_subnetwork.this.region
+}
